@@ -1,0 +1,9 @@
+[Unit]
+Description=Sent email on failure for %I
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c '/usr/bin/systemctl status %I | /usr/bin/mail -s "[SYSTEMD_%i] Failed!" {{ email }}'
+
+[Install]
+WantedBy=multi-user.target
