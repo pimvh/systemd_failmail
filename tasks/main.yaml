@@ -1,6 +1,6 @@
 ---
 - name: Assert required variables for role are defined
-  include_tasks:
+  ansible.builtin.include_tasks:
     file: assert.yaml
     apply:
       delegate_to: localhost
@@ -9,7 +9,7 @@
 - name: Move failmail service and validate
   block:
     - name: Move failmail service to host
-      template:
+      ansible.builtin.template:
         src: failmail.service
         dest: /lib/systemd/system/failmail@.service
         # does not work using Ansible
@@ -22,8 +22,9 @@
 
     - name: Validate failmail service
       # validation as separate task
-      command: systemd-analyze verify failmail@.service
+      ansible.builtin.command: systemd-analyze verify failmail@.service
       args:
         chdir: "/lib/systemd/system"
       changed_when: false
       become: true
+  notify: "reload systemd"

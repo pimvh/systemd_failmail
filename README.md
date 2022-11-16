@@ -1,30 +1,38 @@
-# Role Name
+# Requirements
 
-A brief description of the role goes here.
-
-## Requirements
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-## Role Variables
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-## Dependencies
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-## Example Playbook
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+1. Ansible installed:
 
 ```
-    - hosts: servers
-      roles:
-         - { role: pimvh.systemd-failmail, systemd_failmail_email: "you@domain.com" }
+sudo apt install python3
+python3 -m ensurepip --upgrade
+pip3 install ansible
 ```
 
-## License
+## Required variables
+
+Review the variables as shown in defaults.
+
+```
+systemd_failmail_email: ""
+```
+
+The ansible playbook will validate whether the variables exist that you defined before running.
+
+# Example playbook
+
+```
+hosts:
+  - foo
+roles:
+  - systemd-failmail
+
+```
+
+# TLDR - What will happen if I run this
+
+- Add a failmail service to your host, which can be included in other service to notify on failure.
+
+# License
 
 The GPLv3 License (GPLv3)
 
@@ -42,7 +50,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-## Author Information
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
