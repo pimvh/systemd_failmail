@@ -6,6 +6,12 @@
       delegate_to: localhost
       run_once: true
 
+- name: Install mailutils
+  ansible.builtin.package:
+    name: mailutils
+    state: present
+  become: true
+
 - name: Move failmail service and validate
   block:
     - name: Move failmail service to host
