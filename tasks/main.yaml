@@ -13,11 +13,12 @@
   become: true
 
 - name: Move failmail service and validate
+  notify: "reload systemd"
   block:
     - name: Move failmail service to host
       ansible.builtin.template:
         src: failmail.service
-        dest: /lib/systemd/system/failmail@.service
+        dest: /etc/systemd/system/failmail@.service
         # does not work using Ansible
         # validate: "systemd-analyze verify %s"
         owner: root
@@ -30,10 +31,9 @@
       # validation as separate task
       ansible.builtin.command: systemd-analyze verify failmail@.service
       args:
-        chdir: "/lib/systemd/system"
+        chdir: "/etc/systemd/system"
       changed_when: false
       become: true
-  notify: "reload systemd"
 
 # Taken from: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
 # Example 3.
@@ -54,7 +54,7 @@
     - name: Template global failure dependancy Unit file
       ansible.builtin.template:
         src: 10-all.conf.j2
-        dest: /etc/systemd/system/service.d/10-all.conf.j2
+        dest: /etc/systemd/system/service.d/10-all.conf
         owner: root
         group: root
         mode: u=rw,g=r,o=r
