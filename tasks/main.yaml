@@ -34,3 +34,38 @@
       changed_when: false
       become: true
   notify: "reload systemd"
+
+# Taken from: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
+# Example 3.
+- name: Add failmail as a global OnFailure dependency
+  block:
+    - name: Add service.d for global config directory
+      file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        state: directory
+        mode: u=rwx,g=rx,o=rx
+      become: true
+      loop:
+        - /etc/systemd/system/service.d/
+        - /etc/systemd/system/failmail@.service.d/
+
+    - name: Template global failure dependancy Unit file
+      ansible.builtin.template:
+        src: 10-all.conf.j2
+        dest: /etc/systemd/system/service.d/10-all.conf.j2
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+      become: true
+      notify: "reload systemd"
+
+    - name: Prevent infinite loops for failmail service itself (symlink)
+      ansible.builtin.file:
+        src: /dev/null
+        dest: /etc/systemd/system/failmail@.service.d/10-all.conf
+        owner: root
+        group: root
+        state: link
+      become: true
