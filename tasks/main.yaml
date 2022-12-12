@@ -40,7 +40,7 @@
 - name: Add failmail as a global OnFailure dependency
   block:
     - name: Add service.d for global config directory
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         owner: root
         group: root
