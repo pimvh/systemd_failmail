@@ -30,7 +30,7 @@ roles:
 
 # TLDR - What will happen if I run this
 
-- Add a failmail service to your host, which can be included in other service to notify on failure.
+- Add a failmail service to your host. It will automatically be applied to all other services, to notify you of failures.
 
 # License
 
