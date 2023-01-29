@@ -16,6 +16,8 @@ galaxy_info:
   galaxy_tags:
     - systemd
     - mail
+    - service
+    - systemctl
     - failure
 
 dependencies: []
