@@ -1,2 +1,3 @@
 ---
 systemd_failmail_email: ""
+systemd_failmail_mailutils_args: ""

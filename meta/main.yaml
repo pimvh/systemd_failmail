@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Pim van Helvoirt
   description: Adds a simple service to a host that sends out an email
@@ -21,3 +22,22 @@ galaxy_info:
     - failure
 
 dependencies: []
+
+
+argument_specs:
+  main:
+    short_description: The main entry point for the systemd_failmail role
+    description: |
+      This entrypoint configures the systemd_failmail role to send emails on all service failures.
+    options:
+      systemd_failmail_email:
+        type: str
+        required: true
+        description: "The email to receive failure mails on."
+
+      systemd_failmail_mailutils_args:
+        type: str
+        required: false
+        default: ""
+        description: "Additional arguments to pass to the mailutils mail command,
+          like an STMP url"
