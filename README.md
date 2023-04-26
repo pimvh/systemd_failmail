@@ -24,10 +24,18 @@ The ansible playbook will validate whether the variables exist that you defined 
 hosts:
   - foo
 roles:
-  - systemd-failmail
+  - pimvh.systemd-failmail
 
 ```
+
+# Future Improvements
+
+- Isolate service, running as non-root
 
 # TLDR - What will happen if I run this
 
 - Add a failmail service to your host. It will automatically be applied to all other services, to notify you of failures.
+
+# Sources
+
+- How to add global on failure dependency was taken from: [freedesktop.org](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) (Example 3)
