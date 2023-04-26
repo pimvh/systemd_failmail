@@ -5,7 +5,7 @@ Description=Sent email on failure for %I
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash -c '/usr/bin/systemctl status %I | /usr/bin/mail -s "[SYSTEMD_%i] Failed!" {{ systemd_failmail_mailutils_args }} {{ systemd_failmail_email }}'
+ExecStart=/usr/bin/bash -c '/usr/bin/systemctl status %I | /usr/bin/mail -s "$(hostname --fqdn): [SYSTEMD_%i] Failed!"{% if systemd_failmail_mailutils_args %} {{ systemd_failmail_mailutils_args }}{% endif %} {{ systemd_failmail_email }}'
 
 [Install]
 WantedBy=multi-user.target

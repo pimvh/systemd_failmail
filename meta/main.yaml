@@ -1,10 +1,10 @@
 ---
 galaxy_info:
   author: Pim van Helvoirt
-  description: Adds a simple service to a host that sends out an email
+  description: Adds a simple service to a host that sends out an email when a systemd service failed
   license: GPL-3.0-only
 
-  min_ansible_version: "2.1"
+  min_ansible_version: "2.14"
 
   platforms:
     - name: Ubuntu
@@ -17,12 +17,9 @@ galaxy_info:
   galaxy_tags:
     - systemd
     - mail
-    - service
-    - systemctl
     - failure
 
 dependencies: []
-
 
 argument_specs:
   main:
@@ -39,5 +36,4 @@ argument_specs:
         type: str
         required: false
         default: ""
-        description: "Additional arguments to pass to the mailutils mail command,
-          like an STMP url"
+        description: "Additional arguments to pass to the mailutils mail command, like an STMP url"
