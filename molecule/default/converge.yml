@@ -13,4 +13,3 @@
     - name: "Include pimvh.systemd_failmail"
       ansible.builtin.include_role:
         name: "systemd_failmail"
-
