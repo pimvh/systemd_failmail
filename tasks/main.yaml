@@ -30,7 +30,6 @@
       become: true
 
 # Taken from: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
-# Example 3.
 - name: Add failmail as a global OnFailure dependency
   block:
     - name: Add service.d for global config directory
