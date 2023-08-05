@@ -5,7 +5,27 @@ Description=Sent email on failure for %I
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash -c '/usr/bin/systemctl status %I | /usr/bin/mail -s "$(hostname --fqdn): [SYSTEMD_%i] Failed!"{% if systemd_failmail_mailutils_args %} {{ systemd_failmail_mailutils_args }}{% endif %} {{ systemd_failmail_email }}'
+StateDirectory=failmail/%i
+
+# Security measures
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+PrivateDevices=yes
+ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectClock=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+
+ExecStart=/usr/bin/bash -c '/usr/bin/systemctl status %I | /usr/bin/mail --subject="$(hostname --fqdn): [SYSTEMD_%i] Failed!" pim.vanhelvoirt@os3.nl'
 
 [Install]
 WantedBy=multi-user.target
