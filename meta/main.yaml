@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Pim van Helvoirt
+  author: pimvh
   description: Adds a simple service to a host that sends out an email when a systemd service failed
   license: GPL-3.0-only
 
